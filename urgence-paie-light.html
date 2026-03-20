@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URGENCE PAIE – Régularisation en 48h (Clair)</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; }
+body { font-family:'Barlow',sans-serif; background:#ffffff; color:#0a0a0a; min-width:320px; }
+
+/* ── NAV ── */
+nav {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 80px; height:64px;
+  border-bottom:1px solid rgba(0,0,0,0.1);
+  position:sticky; top:0; z-index:100;
+  background:rgba(255,255,255,0.97); backdrop-filter:blur(8px);
+}
+.nav-logo svg { height:45px; width:130px; display:block; }
+.nav-right { display:flex; align-items:center; gap:32px; }
+.nav-tel {
+  font-weight:600; font-size:0.88rem; color:rgba(0,0,0,0.85);
+  text-decoration:none; transition:color 0.2s; letter-spacing:0.02em;
+}
+.nav-tel:hover { color:#E8130A; }
+.nav-cta {
+  background:#E8130A; color:#0a0a0a; text-decoration:none;
+  padding:9px 20px; border-radius:2px;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700;
+  font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase;
+  transition:background 0.2s;
+}
+.nav-cta:hover { background:#ff2e25; }
+
+/* ── HERO ── */
+#hero {
+  width:100%;
+}
+.hero-left {
+  padding:80px 80px 60px;
+  display:flex; flex-direction:column;
+}
+.alert-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(232,19,10,0.12); border:1px solid rgba(232,19,10,0.5);
+  color:#E8130A; padding:5px 12px; border-radius:2px;
+  font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+  width:fit-content; margin-bottom:24px; animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,19,10,0.35)}50%{box-shadow:0 0 0 6px rgba(232,19,10,0)}}
+.dot { width:6px;height:6px;border-radius:50%;background:#E8130A;animation:blink 1.2s infinite;flex-shrink:0; }
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+h1 {
+  font-family:'Barlow Condensed',sans-serif; font-weight:900;
+  font-size:clamp(3.5rem,8vw,9rem); text-transform:uppercase;
+  line-height:0.93; letter-spacing:-0.01em; margin-bottom:20px; color:#0a0a0a;
+}
+h1 em { color:#E8130A; font-style:normal; display:block; }
+.desc { font-size:1rem; line-height:1.75; color:rgba(0,0,0,0.85); margin-bottom:28px; }
+.desc strong { color:rgba(0,0,0,0.85); font-weight:600; }
+
+.proof { display:flex; gap:48px; margin-bottom:36px; }
+.proof-item strong { display:block; font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:2.4rem; color:#0a0a0a; line-height:1; }
+.proof-item span { font-size:0.72rem; color:rgba(255,255,255,0.85); }
+
+.btn-primary {
+  display:inline-block; background:#E8130A; color:#0a0a0a;
+  padding:14px 30px; text-decoration:none; border:none; cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem;
+  letter-spacing:0.06em; text-transform:uppercase; border-radius:2px;
+  transition:all 0.2s; width:fit-content;
+}
+.btn-primary:hover { background:#ff2e25; transform:translateY(-2px); box-shadow:0 6px 24px rgba(232,19,10,0.4); }
+.cta-note { margin-top:10px; font-size:0.74rem; color:rgba(0,0,0,0.75); }
+
+/* HERO RIGHT */
+.hero-right {
+  padding:0 80px 80px;
+  display:flex; flex-direction:column;
+}
+.mini-form-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.3rem; text-transform:uppercase; margin-bottom:4px; color:#0a0a0a; }
+.mini-form-sub { font-size:0.8rem; color:rgba(255,255,255,0.85); margin-bottom:20px; }
+
+.field-group { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+.field-group label { font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(0,0,0,0.85); }
+.field-group input, .field-group select, .field-group textarea {
+  border:1px solid rgba(0,0,0,0.12); background:rgba(0,0,0,0.04);
+  padding:11px 14px; border-radius:2px; font-family:'Barlow',sans-serif;
+  font-size:0.88rem; color:#0a0a0a; outline:none; transition:border-color 0.2s; appearance:none;
+}
+.field-group input::placeholder, .field-group textarea::placeholder { color:rgba(0,0,0,0.85); }
+.field-group input:focus, .field-group select:focus, .field-group textarea:focus { border-color:#E8130A; background:rgba(232,19,10,0.04); }
+.field-group select option { background:#ffffff; }
+.field-group textarea { min-height:72px; resize:vertical; }
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+.form-submit {
+  width:100%; background:#E8130A; color:#0a0a0a; border:none; cursor:pointer;
+  padding:14px; font-family:'Barlow Condensed',sans-serif; font-weight:800;
+  font-size:1rem; letter-spacing:0.08em; text-transform:uppercase;
+  border-radius:2px; transition:all 0.2s; margin-top:4px;
+}
+.form-submit:hover { background:#ff2e25; box-shadow:0 4px 20px rgba(232,19,10,0.4); }
+.form-guarantee { text-align:center; font-size:0.72rem; color:rgba(0,0,0,0.85); margin-top:8px; }
+
+/* ── TRUST ── */
+#trust {
+  display:flex; align-items:center; justify-content:center; gap:60px;
+  padding:20px 80px; flex-wrap:wrap;
+  border-top:1px solid rgba(0,0,0,0.08);
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  background:rgba(232,19,10,0.05);
+}
+.trust-item { font-size:0.78rem; font-weight:500; color:rgba(0,0,0,0.85); display:flex; align-items:center; gap:7px; }
+.trust-item span { color:#E8130A; }
+
+/* ── FORMULAIRE COMPLET ── */
+#form-section { padding:64px 80px; border-top:1px solid rgba(0,0,0,0.08); }
+.form-wrapper { max-width:820px; margin:0 auto; }
+.form-header { margin-bottom:36px; }
+.form-header h2 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.9rem; text-transform:uppercase; color:#0a0a0a; margin-bottom:6px; }
+.form-header p { font-size:0.88rem; color:rgba(0,0,0,0.85); }
+
+/* ÉTAPES */
+.global-steps {
+  display:flex; margin-bottom:36px;
+  border:1px solid rgba(0,0,0,0.12); border-radius:3px; overflow:hidden;
+}
+.g-step {
+  flex:1; padding:12px 16px; text-align:center;
+  font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  color:rgba(0,0,0,0.85); background:transparent;
+  border-right:1px solid rgba(0,0,0,0.12); transition:all 0.3s;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.g-step:last-child { border-right:none; }
+.g-step.active { background:rgba(232,19,10,0.12); color:#E8130A; }
+.g-step.done { background:rgba(232,19,10,0.05); color:rgba(0,0,0,0.85); }
+
+.block { display:none; }
+.block.visible { display:block; }
+
+.field-row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:12px; }
+
+/* PÉRIODE */
+.period-selector { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px; margin-bottom:16px; }
+.period-note {
+  font-size:0.8rem; color:rgba(0,0,0,0.85);
+  padding:11px 14px; border:1px solid rgba(0,0,0,0.08);
+  border-radius:2px; background:rgba(0,0,0,0.03); margin-bottom:20px;
+}
+.period-note span { color:#E8130A; font-weight:600; }
+
+/* STEPPER */
+.stepper-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.stepper-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.2rem; text-transform:uppercase; color:#0a0a0a; }
+.stepper-count { font-size:0.78rem; color:rgba(0,0,0,0.85); }
+
+.months-progress { display:flex; gap:4px; margin-bottom:24px; flex-wrap:wrap; }
+.month-pip { flex:1; min-width:24px; height:4px; border-radius:2px; background:rgba(0,0,0,0.12); transition:all 0.3s; cursor:pointer; position:relative; }
+.month-pip.active { background:#E8130A; }
+.month-pip.done { background:rgba(232,19,10,0.45); }
+.month-pip:hover::after { content:attr(data-label); position:absolute; bottom:10px; left:50%; transform:translateX(-50%); background:#ffffff; border:1px solid rgba(0,0,0,0.12); color:#0a0a0a; font-size:0.68rem; padding:3px 8px; border-radius:2px; white-space:nowrap; pointer-events:none; }
+
+.month-card { border:1px solid rgba(0,0,0,0.12); border-radius:3px; overflow:hidden; animation:slideIn 0.3s ease; }
+@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.month-card-header { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:rgba(232,19,10,0.1); border-bottom:1px solid rgba(232,19,10,0.2); }
+.month-card-header h3 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.1rem; text-transform:uppercase; color:#0a0a0a; }
+.month-badge-num { font-size:0.72rem; color:#E8130A; font-weight:700; }
+.month-card-body { padding:20px; display:grid; grid-template-columns:160px 1fr 1fr; gap:16px; align-items:start; }
+
+.dsn-toggle-group { display:flex; border:1px solid rgba(0,0,0,0.12); border-radius:2px; overflow:hidden; }
+.dsn-btn { flex:1; padding:9px 6px; text-align:center; cursor:pointer; font-size:0.78rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; background:transparent; color:rgba(0,0,0,0.85); border:none; transition:all 0.2s; font-family:'Barlow',sans-serif; border-right:1px solid rgba(0,0,0,0.12); }
+.dsn-btn:last-child { border-right:none; }
+.dsn-btn.selected { background:#E8130A; color:#0a0a0a; }
+
+/* NAV STEPPER */
+.stepper-nav { display:flex; align-items:center; justify-content:space-between; margin-top:20px; }
+.btn-nav { padding:10px 24px; border-radius:2px; cursor:pointer; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.92rem; letter-spacing:0.06em; text-transform:uppercase; transition:all 0.2s; border:none; }
+.btn-prev { background:rgba(0,0,0,0.08); color:rgba(0,0,0,0.6); }
+.btn-prev:hover { background:rgba(0,0,0,0.1); color:#0a0a0a; }
+.btn-next { background:#E8130A; color:#0a0a0a; }
+.btn-next:hover { background:#ff2e25; }
+.btn-next:disabled { background:rgba(0,0,0,0.12); color:rgba(0,0,0,0.85); cursor:not-allowed; }
+
+/* RÉCAP */
+.recap-total { display:flex; gap:28px; padding:18px 22px; border:1px solid rgba(232,19,10,0.3); border-radius:3px; background:rgba(232,19,10,0.07); margin-bottom:20px; flex-wrap:wrap; }
+.recap-total-item strong { display:block; font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.6rem; color:#0a0a0a; }
+.recap-total-item span { font-size:0.74rem; color:rgba(0,0,0,0.85); }
+
+.recap-grid { display:flex; flex-direction:column; gap:2px; margin-bottom:20px; }
+.recap-row { display:grid; grid-template-columns:130px 100px 80px 1fr; border:1px solid rgba(0,0,0,0.1); overflow:hidden; border-bottom:none; }
+.recap-row:last-child { border-bottom:1px solid rgba(0,0,0,0.1); }
+.recap-cell { padding:10px 14px; font-size:0.82rem; border-right:1px solid rgba(0,0,0,0.1); }
+.recap-cell:last-child { border-right:none; }
+.recap-cell.label { color:rgba(0,0,0,0.85); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; background:rgba(0,0,0,0.03); }
+.recap-cell.dsn-oui { color:#4ade80; font-weight:600; }
+.recap-cell.dsn-non { color:rgba(0,0,0,0.85); }
+.recap-cell.dsn-partielle { color:#fbbf24; font-weight:600; }
+
+/* SUCCESS */
+.success-screen { display:none; text-align:center; padding:60px 40px; }
+.success-icon { font-size:2.5rem; margin-bottom:16px; }
+.success-screen h3 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.8rem; text-transform:uppercase; color:#0a0a0a; margin-bottom:10px; }
+.success-screen p { color:rgba(0,0,0,0.85); font-size:0.9rem; line-height:1.7; }
+
+/* ── FOOTER ── */
+footer {
+  padding:20px 80px; border-top:1px solid rgba(0,0,0,0.08);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+}
+footer svg { height:28px; width:auto; }
+footer p { font-size:0.74rem; color:rgba(0,0,0,0.85); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav { padding:12px 20px; }
+  .hero-left { padding:40px 20px; }
+  .hero-right { padding:0 20px 40px; max-width:100%; }
+  #trust { gap:16px; padding:16px 20px; }
+  #form-section { padding:48px 20px; }
+  .period-selector { grid-template-columns:1fr 1fr; }
+  .field-row { grid-template-columns:1fr; }
+  .field-row-3 { grid-template-columns:1fr; }
+  .month-card-body { grid-template-columns:1fr; }
+  .global-steps { flex-wrap:wrap; }
+  .recap-row { grid-template-columns:1fr 1fr; }
+  footer { padding:16px 20px; flex-direction:column; text-align:center; }
+  .nav-right .nav-cta { display:none; }
+}
+
+/* TABLE MOIS */
+#month-table { width:100%; border-collapse:collapse; font-size:0.88rem; }
+#month-table thead tr { background:rgba(232,19,10,0.1); }
+#month-table th { padding:12px 16px; text-align:left; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid #E8130A; }
+#month-table td { padding:10px 12px; border-bottom:1px solid rgba(0,0,0,0.08); vertical-align:middle; }
+#month-table tr:hover td { background:rgba(232,19,10,0.04); }
+#month-table input[type="number"], #month-table input[type="text"] {
+  width:100%; border:1px solid rgba(0,0,0,0.12); background:rgba(0,0,0,0.04);
+  padding:8px 10px; border-radius:2px; font-family:'Barlow',sans-serif;
+  font-size:0.85rem; color:#0a0a0a; outline:none;
+}
+#month-table input[type="number"] { max-width:90px; }
+#month-table input:focus { border-color:#E8130A; }
+
+/* ESTIMATION */
+.estimation-item {
+  border-left:3px solid #E8130A !important;
+  padding-left:16px !important;
+  margin-left:8px;
+}
+.estimation-item strong { color:#E8130A !important; font-size:2rem !important; }
+.estimation-item em { display:block; font-size:0.72rem; color:rgba(0,0,0,0.5); font-style:normal; margin-top:2px; }
+.estimation-item small { display:block; font-size:0.68rem; color:rgba(0,0,0,0.5); margin-top:3px; font-style:italic; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 220" height="48" width="110">
+  <rect x="0" y="0" width="488" height="42" rx="3" fill="#E8130A"/>
+  <circle cx="18" cy="21" r="6" fill="white"/>
+  <text x="244" y="29" font-family="Arial,sans-serif" font-weight="700" font-size="22" letter-spacing="8" fill="white" text-anchor="middle">URGENCE</text>
+  <text x="0" y="185" font-family="Arial,sans-serif" font-weight="900" font-size="168" letter-spacing="6" fill="#0a0a0a">PAIE</text>
+  <rect x="0" y="196" width="488" height="7" rx="1.5" fill="#E8130A"/>
+</svg>
+  </div>
+  <div class="nav-right">
+    <a href="tel:+33100000000" class="nav-tel">📞 01 00 00 00 00</a>
+    <a href="#form-section" class="nav-cta">Diagnostic gratuit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-left">
+    <div class="alert-badge"><div class="dot"></div> Intervention disponible maintenant</div>
+    <h1>Votre paie bloquée ?<em>On règle ça.</em></h1>
+    <p class="desc">DSN en retard, pénalité URSSAF, bulletins erronés — <strong>nous régularisons votre situation en 48h.</strong> Mission ponctuelle. Prix fixe. Sans engagement.</p>
+    <div class="proof">
+      <div class="proof-item"><strong>48h</strong><span>Délai d'intervention</span></div>
+      <div class="proof-item"><strong>0€</strong><span>Diagnostic initial</span></div>
+      <div class="proof-item"><strong>100%</strong><span>Dossiers régularisés</span></div>
+    </div>
+    <button class="btn-primary" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})">Démarrer mon diagnostic →</button>
+    <p class="cta-note">Réponse sous 24h · Aucun engagement</p>
+  </div>
+
+  <div class="hero-right">
+    <div class="mini-form-title">Besoin d'un rappel rapide ?</div>
+    <div class="mini-form-sub">On vous rappelle sous 2h</div>
+    <div class="field-row">
+      <div class="field-group">
+        <label>Nom & Prénom</label>
+        <input type="text" placeholder="Jean Dupont">
+      </div>
+      <div class="field-group">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="06 00 00 00 00">
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Votre problème en une ligne</label>
+      <input type="text" placeholder="Ex : DSN en retard depuis mars…">
+    </div>
+    <div class="field-group">
+      <label>Type de problème</label>
+      <select>
+        <option value="">Sélectionnez</option>
+        <option>DSN en retard / erronée</option>
+        <option>Pénalité ou taxation URSSAF</option>
+        <option>Contrôle URSSAF en cours</option>
+        <option>Bulletins de paie en retard</option>
+        <option>Litige salarié / Prud'hommes</option>
+        <option>Aides bloquées</option>
+      </select>
+    </div>
+    <button class="form-submit">Me faire rappeler →</button>
+    <p class="form-guarantee">🔒 Gratuit · Sans engagement</p>
+  </div>
+</div>
+
+<!-- TRUST -->
+<div id="trust">
+  <div class="trust-item"><span>⚡</span> Intervention sous 48h</div>
+  <div class="trust-item"><span>✓</span> Devis fixe, zéro surprise</div>
+  <div class="trust-item"><span>✓</span> Mission ponctuelle, sans abonnement</div>
+  <div class="trust-item"><span>✓</span> Experts paie & DSN certifiés</div>
+</div>
+
+<!-- FORMULAIRE COMPLET -->
+<section id="form-section">
+  <div class="form-wrapper">
+    <div class="form-header">
+      <h2>Diagnostic détaillé</h2>
+      <p>Décrivez précisément votre situation pour recevoir un devis personnalisé sous 24h</p>
+    </div>
+
+    <div class="global-steps">
+      <div class="g-step active" id="gstep-1">① Vos infos</div>
+      <div class="g-step" id="gstep-2">② Période & détail</div>
+      <div class="g-step" id="gstep-3">③ Récapitulatif</div>
+    </div>
+
+    <!-- BLOC 1 -->
+    <div class="block visible" id="block-1">
+      <div class="field-row" style="margin-bottom:12px">
+        <div class="field-group"><label>Nom & Prénom</label><input type="text" id="inp-nom" placeholder="Jean Dupont"></div>
+        <div class="field-group"><label>Entreprise</label><input type="text" id="inp-societe" placeholder="Ma Société SAS"></div>
+      </div>
+      <div class="field-row" style="margin-bottom:12px">
+        <div class="field-group"><label>Téléphone</label><input type="tel" id="inp-tel" placeholder="06 00 00 00 00"></div>
+        <div class="field-group"><label>Email</label><input type="email" id="inp-email" placeholder="jean@societe.fr"></div>
+      </div>
+      <div class="field-row" style="margin-bottom:12px">
+        <div class="field-group">
+          <label>Type de problème principal</label>
+          <select id="inp-type">
+            <option value="">Sélectionnez</option>
+            <option>DSN en retard / erronée</option>
+            <option>Pénalité ou taxation URSSAF</option>
+            <option>Contrôle URSSAF en cours</option>
+            <option>Bulletins de paie en retard</option>
+            <option>Litige salarié / Prud'hommes</option>
+            <option>Aides bloquées</option>
+            <option>Plusieurs problèmes combinés</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Logiciel de paie utilisé</label>
+          <select id="inp-logiciel">
+            <option value="">Sélectionnez</option>
+            <option>Silae</option><option>Sage Paie</option><option>Cegid</option>
+            <option>PayFit</option><option>ADP</option><option>Autre / Aucun</option>
+          </select>
+        </div>
+      </div>
+      <div class="stepper-nav" style="justify-content:flex-end">
+        <button class="btn-nav btn-next" onclick="goTo(2)">Suivant : Période →</button>
+      </div>
+    </div>
+
+    <!-- BLOC 2 : PÉRIODE + TABLEAU -->
+    <div class="block" id="block-2">
+      <div class="period-selector">
+        <div class="field-group">
+          <label>Mois de début</label>
+          <select id="sel-debut" onchange="updatePeriodNote()">
+            <option value="">-- Mois --</option>
+            <option value="0">Janvier</option><option value="1">Février</option><option value="2">Mars</option>
+            <option value="3">Avril</option><option value="4">Mai</option><option value="5">Juin</option>
+            <option value="6">Juillet</option><option value="7">Août</option><option value="8">Septembre</option>
+            <option value="9">Octobre</option><option value="10">Novembre</option><option value="11">Décembre</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Année de début</label>
+          <select id="sel-debut-an" onchange="updatePeriodNote()">
+            <option value="2023">2023</option><option value="2024">2024</option><option value="2025" selected>2025</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Mois de fin</label>
+          <select id="sel-fin" onchange="updatePeriodNote()">
+            <option value="">-- Mois --</option>
+            <option value="0">Janvier</option><option value="1">Février</option><option value="2">Mars</option>
+            <option value="3">Avril</option><option value="4">Mai</option><option value="5">Juin</option>
+            <option value="6">Juillet</option><option value="7">Août</option><option value="8">Septembre</option>
+            <option value="9">Octobre</option><option value="10">Novembre</option><option value="11">Décembre</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Année de fin</label>
+          <select id="sel-fin-an" onchange="updatePeriodNote()">
+            <option value="2023">2023</option><option value="2024">2024</option><option value="2025" selected>2025</option>
+          </select>
+        </div>
+      </div>
+      <div class="period-note" id="period-note">Sélectionnez une période pour afficher le tableau.</div>
+
+      <!-- TABLEAU MOIS -->
+      <div id="month-table-wrap" style="display:none; margin-top:24px; overflow-x:auto;">
+        <table id="month-table">
+          <thead>
+            <tr>
+              <th>Mois</th>
+              <th>Bulletin de paie (y compris DSN)</th>
+              <th>Soldes de tout compte</th>
+              <th>Commentaire</th>
+            </tr>
+          </thead>
+          <tbody id="month-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="stepper-nav" style="margin-top:24px;">
+        <button class="btn-nav btn-prev" onclick="goTo(1)">← Retour</button>
+        <button class="btn-nav btn-next" id="btn-to-recap" onclick="buildRecap();goTo(3)" disabled>Voir le récapitulatif →</button>
+      </div>
+    </div>
+
+    <!-- BLOC 3 : RÉCAP -->
+    <div class="block" id="block-3">
+      <div class="recap-total" id="recap-total"></div>
+      <div class="recap-grid" id="recap-grid"></div>
+      <div class="field-group" style="margin-bottom:16px">
+        <label>Informations complémentaires</label>
+        <textarea id="inp-global-comment" placeholder="Tout autre détail utile…"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">Envoyer mon diagnostic complet →</button>
+      <p class="form-guarantee">🔒 Gratuit · Confidentiel · Sans engagement · Réponse sous 24h</p>
+      <div class="stepper-nav" style="margin-top:16px;justify-content:flex-start">
+        <button class="btn-nav btn-prev" onclick="goTo(2)">← Modifier</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">✅</div>
+      <h3>Diagnostic envoyé !</h3>
+      <p>Nous avons bien reçu votre dossier.<br>Un expert vous contacte sous <strong style="color:#E8130A">24h</strong> avec une analyse et un devis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 220" height="36" width="82">
+  <rect x="0" y="0" width="488" height="42" rx="3" fill="#E8130A"/>
+  <circle cx="18" cy="21" r="6" fill="white"/>
+  <text x="244" y="29" font-family="Arial,sans-serif" font-weight="700" font-size="22" letter-spacing="8" fill="white" text-anchor="middle">URGENCE</text>
+  <text x="0" y="185" font-family="Arial,sans-serif" font-weight="900" font-size="168" letter-spacing="6" fill="#0a0a0a">PAIE</text>
+  <rect x="0" y="196" width="488" height="7" rx="1.5" fill="#E8130A"/>
+</svg>
+  <p>© 2025 Urgence Paie · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="076468697366647347727560626964622a77666e62296175">[email&#160;protected]</a></p>
+  <p>Exploité par Equation Paie</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const MOIS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+let monthData=[];
+
+function goTo(step){
+  [1,2,3].forEach(s=>{
+    document.getElementById('block-'+s).classList.remove('visible');
+    const g=document.getElementById('gstep-'+s);
+    g.classList.remove('active','done');
+    if(s<step) g.classList.add('done');
+    if(s===step) g.classList.add('active');
+  });
+  document.getElementById('block-'+step).classList.add('visible');
+  document.getElementById('form-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function updatePeriodNote(){
+  const dm=document.getElementById('sel-debut').value;
+  const da=document.getElementById('sel-debut-an').value;
+  const fm=document.getElementById('sel-fin').value;
+  const fa=document.getElementById('sel-fin-an').value;
+  const note=document.getElementById('period-note');
+  const btn=document.getElementById('btn-to-recap');
+  const wrap=document.getElementById('month-table-wrap');
+
+  if(dm===''||fm===''){
+    note.innerHTML='Sélectionnez une période pour afficher le tableau.';
+    wrap.style.display='none'; btn.disabled=true; return;
+  }
+  const start=new Date(+da,+dm,1), end=new Date(+fa,+fm,1);
+  if(end<start){
+    note.innerHTML='⚠️ La date de fin doit être après la date de début.';
+    wrap.style.display='none'; btn.disabled=true; return;
+  }
+
+  // Build month data
+  monthData=[];
+  let m=+dm, y=+da;
+  while(y<+fa||(y===+fa&&m<=+fm)){
+    monthData.push({month:m,year:y,label:MOIS[m]+' '+y,salaries:'',stc:'',dsn:'',comment:''});
+    m++; if(m>11){m=0;y++;}
+  }
+
+  const count=monthData.length;
+  note.innerHTML=`Période : <span>${MOIS[+dm]} ${da}</span> → <span>${MOIS[+fm]} ${fa}</span> — <span>${count} mois</span> à régulariser.`;
+
+  // Render table
+  renderTable();
+  wrap.style.display='block';
+  btn.disabled=false;
+}
+
+function renderTable(){
+  const tbody=document.getElementById('month-tbody');
+  tbody.innerHTML=monthData.map((d,i)=>`
+    <tr>
+      <td><strong>${d.label}</strong></td>
+      <td><input type="number" min="0" placeholder="0" value="${d.salaries}"
+        oninput="monthData[${i}].salaries=this.value"></td>
+      <td><input type="number" min="0" placeholder="0" value="${d.stc}"
+        oninput="monthData[${i}].stc=this.value"></td>
+      <td><input type="text" placeholder="Commentaire…" value="${d.comment}"
+        oninput="monthData[${i}].comment=this.value"></td>
+    </tr>
+  `).join('');
+}
+
+function setDSN(idx,val,btn){
+  monthData[idx].dsn=val;
+  const row=btn.closest('tr');
+  row.querySelectorAll('.dsn-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function buildRecap(){
+  let totalSalaries=0,totalStc=0;
+  monthData.forEach(d=>{ totalSalaries+=+d.salaries||0; totalStc+=+d.stc||0; });
+  // Calcul estimation : bulletin = bulletin + DSN inclus
+  let estimation = 0;
+  monthData.forEach(d => {
+    const bulletins = +d.salaries || 0;
+    const stc = +d.stc || 0;
+    estimation += bulletins > 0 ? bulletins * 50 : 50;  // 50€ x bulletins, min 50€ si 0 bulletin
+    estimation += stc * 50;                              // 50€ par STC
+  });
+  const estimationTTC = Math.round(estimation * 1.2);
+
+  // Frais de dossier
+  const fraisDossier = totalSalaries < 12 ? 150 : 300;
+  const totalHT = estimation + fraisDossier;
+  const totalTTC = Math.round(totalHT * 1.2);
+
+  document.getElementById('recap-total').innerHTML=`
+    <div class="recap-total-item"><strong>${monthData.length}</strong><span>Mois à régulariser</span></div>
+    <div class="recap-total-item"><strong>${totalSalaries}</strong><span>Total bulletins de paie</span></div>
+    <div class="recap-total-item"><strong>${totalStc}</strong><span>Total soldes de tout compte</span></div>
+    <div class="recap-total-item estimation-item">
+      <strong>${totalHT}€ HT</strong>
+      <span>Estimation honoraires</span>
+      <em>${totalTTC}€ TTC</em>
+      <small>dont ${fraisDossier}€ frais de dossier & paramétrage</small>
+    </div>`;
+  document.getElementById('recap-grid').innerHTML=`
+    <div class="recap-row">
+      <div class="recap-cell label">Mois</div>
+      <div class="recap-cell label">Bulletins (DSN)</div>
+      <div class="recap-cell label">STC</div>
+      <div class="recap-cell label">Commentaire</div>
+    </div>`+monthData.map(d=>{
+      const dc=d.dsn==='oui'?'dsn-oui':d.dsn==='partielle'?'dsn-partielle':'dsn-non';
+      const dl=d.dsn==='oui'?'✓ Oui':d.dsn==='partielle'?'⚠ Partielle':d.dsn==='non'?'✗ Non':'—';
+      return `<div class="recap-row">
+        <div class="recap-cell" style="font-weight:600">${d.label}</div>
+        <div class="recap-cell">${d.salaries||'—'}</div>
+        <div class="recap-cell">${d.stc||'—'}</div>
+        <div class="recap-cell" style="font-size:0.78rem">${d.comment||'—'}</div>
+      </div>`;
+    }).join('');
+}
+
+function submitForm(){
+  document.getElementById('block-3').style.display='none';
+  document.getElementById('success-screen').style.display='block';
+  document.getElementById('form-section').scrollIntoView({behavior:'smooth'});
+}
+</script><script>
+const MOIS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+let monthData=[],currentMonth=0,currentDSN='';
+
+function goTo(step){
+  [1,2,3,4].forEach(s=>{
+    document.getElementById('block-'+s).classList.remove('visible');
+    const g=document.getElementById('gstep-'+s);
+    g.classList.remove('active','done');
+    if(s<step) g.classList.add('done');
+    if(s===step) g.classList.add('active');
+  });
+  document.getElementById('block-'+step).classList.add('visible');
+  document.getElementById('form-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function updatePeriodNote(){
+  const dm=document.getElementById('sel-debut').value;
+  const da=document.getElementById('sel-debut-an').value;
+  const fm=document.getElementById('sel-fin').value;
+  const fa=document.getElementById('sel-fin-an').value;
+  const note=document.getElementById('period-note');
+  const btn=document.getElementById('btn-start-stepper');
+  if(dm===''||fm===''){ note.innerHTML='Sélectionnez une période pour voir le nombre de mois à régulariser.'; btn.disabled=true; return; }
+  const start=new Date(+da,+dm,1), end=new Date(+fa,+fm,1);
+  if(end<start){ note.innerHTML='⚠️ La date de fin doit être après la date de début.'; btn.disabled=true; return; }
+  const count=(end.getFullYear()-start.getFullYear())*12+(end.getMonth()-start.getMonth())+1;
+  note.innerHTML=`Période : <span>${MOIS[+dm]} ${da}</span> → <span>${MOIS[+fm]} ${fa}</span> — <span>${count} mois</span> à régulariser.`;
+  btn.disabled=false;
+}
+
+function buildMonthData(){
+  const dm=+document.getElementById('sel-debut').value,da=+document.getElementById('sel-debut-an').value;
+  const fm=+document.getElementById('sel-fin').value,fa=+document.getElementById('sel-fin-an').value;
+  monthData=[];
+  let m=dm,y=da;
+  while(y<fa||(y===fa&&m<=fm)){
+    monthData.push({month:m,year:y,label:MOIS[m]+' '+y,salaries:'',stc:'',dsn:'',comment:''});
+    m++; if(m>11){m=0;y++;}
+  }
+}
+
+function startStepper(){
+  buildMonthData(); currentMonth=0;
+  renderProgress(); renderMonthCard(0); goTo(3);
+}
+
+function renderProgress(){
+  document.getElementById('months-progress').innerHTML=monthData.map((d,i)=>
+    `<div class="month-pip ${i===currentMonth?'active':d.salaries?'done':''}" data-label="${d.label}" onclick="saveCurrentMonth();goToMonth(${i})"></div>`
+  ).join('');
+}
+
+function goToMonth(idx){ currentMonth=idx; renderProgress(); renderMonthCard(idx); }
+
+function renderMonthCard(idx){
+  const d=monthData[idx];
+  document.getElementById('stepper-month-title').textContent=d.label;
+  document.getElementById('stepper-count').textContent=`Mois ${idx+1} / ${monthData.length}`;
+  document.getElementById('card-month-name').textContent=d.label;
+  document.getElementById('card-month-num').textContent=`${idx+1}/${monthData.length}`;
+  document.getElementById('inp-salaries').value=d.salaries;
+  document.getElementById('inp-comment').value=d.comment;
+  currentDSN=d.dsn;
+  document.querySelectorAll('.dsn-btn').forEach(b=>{ b.classList.remove('selected'); if(b.dataset.val===d.dsn) b.classList.add('selected'); });
+  document.getElementById('btn-month-prev').disabled=idx===0;
+  document.getElementById('btn-month-next').textContent=idx===monthData.length-1?'Voir le récapitulatif →':'Mois suivant →';
+}
+
+function selectDSN(btn,val){
+  currentDSN=val;
+  document.querySelectorAll('.dsn-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function saveCurrentMonth(){
+  monthData[currentMonth].salaries=document.getElementById('inp-salaries').value;
+  monthData[currentMonth].dsn=currentDSN;
+  monthData[currentMonth].comment=document.getElementById('inp-comment').value;
+}
+
+function monthNav(dir){
+  saveCurrentMonth();
+  const next=currentMonth+dir;
+  if(next<0) return;
+  if(next>=monthData.length){ buildRecap(); goTo(4); return; }
+  goToMonth(next);
+}
+
+function buildRecap(){
+  let totalSalaries=0,totalStc=0;
+  monthData.forEach(d=>{ totalSalaries+=+d.salaries||0; totalStc+=+d.stc||0; });
+  // Calcul estimation : bulletin = bulletin + DSN inclus
+  let estimation = 0;
+  monthData.forEach(d => {
+    const bulletins = +d.salaries || 0;
+    const stc = +d.stc || 0;
+    estimation += bulletins > 0 ? bulletins * 50 : 50;  // 50€ x bulletins, min 50€ si 0 bulletin
+    estimation += stc * 50;                              // 50€ par STC
+  });
+  const estimationTTC = Math.round(estimation * 1.2);
+
+  // Frais de dossier
+  const fraisDossier = totalSalaries < 12 ? 150 : 300;
+  const totalHT = estimation + fraisDossier;
+  const totalTTC = Math.round(totalHT * 1.2);
+
+  document.getElementById('recap-total').innerHTML=`
+    <div class="recap-total-item"><strong>${monthData.length}</strong><span>Mois à régulariser</span></div>
+    <div class="recap-total-item"><strong>${totalSalaries}</strong><span>Total bulletins de paie</span></div>
+    <div class="recap-total-item"><strong>${totalStc}</strong><span>Total soldes de tout compte</span></div>
+    <div class="recap-total-item estimation-item">
+      <strong>${totalHT}€ HT</strong>
+      <span>Estimation honoraires</span>
+      <em>${totalTTC}€ TTC</em>
+      <small>dont ${fraisDossier}€ frais de dossier & paramétrage</small>
+    </div>`;
+  document.getElementById('recap-grid').innerHTML=`
+    <div class="recap-row">
+      <div class="recap-cell label">Mois</div>
+      <div class="recap-cell label">Bulletins (DSN)</div>
+      <div class="recap-cell label">STC</div>
+      <div class="recap-cell label">Commentaire</div>
+    </div>`+monthData.map(d=>{
+      const dc=d.dsn==='oui'?'dsn-oui':d.dsn==='partielle'?'dsn-partielle':'dsn-non';
+      const dl=d.dsn==='oui'?'✓ Oui':d.dsn==='partielle'?'⚠ Partielle':d.dsn==='non'?'✗ Non':'—';
+      return `<div class="recap-row">
+        <div class="recap-cell" style="font-weight:600">${d.label}</div>
+        <div class="recap-cell">${d.salaries||'—'}</div>
+        <div class="recap-cell ${dc}">${dl}</div>
+        <div class="recap-cell" style="color:rgba(0,0,0,0.85);font-size:0.78rem">${d.comment||'—'}</div>
+      </div>`;
+    }).join('');
+}
+
+function submitForm(){
