@@ -33,6 +33,7 @@ nav {
   transition:background 0.2s;
 }
 .nav-cta:hover { background:#ff2e25; }
+.nav-cta { animation: btn-pulse 2s infinite; }
 
 /* ── HERO ── */
 #hero {
@@ -67,13 +68,15 @@ h1 em { color:#E8130A; font-style:normal; display:block; }
 .proof-item span { font-size:0.72rem; color:rgba(255,255,255,0.85); }
 
 .btn-primary {
-  display:inline-block; background:#E8130A; color:#0a0a0a;
-  padding:14px 30px; text-decoration:none; border:none; cursor:pointer;
+  display:inline-block; background:rgba(232,19,10,0.08); color:#E8130A;
+  padding:14px 30px; text-decoration:none; border:1px solid rgba(232,19,10,0.5); cursor:pointer;
   font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem;
   letter-spacing:0.06em; text-transform:uppercase; border-radius:2px;
   transition:all 0.2s; width:fit-content;
+  animation: btn-pulse 2s infinite;
 }
-.btn-primary:hover { background:#ff2e25; transform:translateY(-2px); box-shadow:0 6px 24px rgba(232,19,10,0.4); }
+@keyframes btn-pulse { 0%,100%{ box-shadow:0 0 0 0 rgba(232,19,10,0.35); } 50%{ box-shadow:0 0 0 8px rgba(232,19,10,0); } }
+.btn-primary:hover { background:#E8130A; color:#fff; transform:translateY(-2px); }
 .cta-note { margin-top:10px; font-size:0.74rem; color:rgba(0,0,0,0.75); }
 
 /* HERO RIGHT */
@@ -255,6 +258,101 @@ footer p { font-size:0.74rem; color:rgba(0,0,0,0.85); }
 .estimation-item strong { color:#E8130A !important; font-size:2rem !important; }
 .estimation-item em { display:block; font-size:0.72rem; color:rgba(0,0,0,0.5); font-style:normal; margin-top:2px; }
 .estimation-item small { display:block; font-size:0.68rem; color:rgba(0,0,0,0.5); margin-top:3px; font-style:italic; }
+
+/* BOUTON DOT */
+.btn-dot {
+  display:inline-block; width:7px; height:7px; border-radius:50%;
+  background:#E8130A; margin-right:4px; vertical-align:middle;
+  animation:blink 1.2s infinite;
+}
+.btn-primary:hover .btn-dot { background:#fff; }
+
+
+/* ══════════════════════════════
+   PANNEAU ADMIN
+══════════════════════════════ */
+#admin-panel {
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:#f8f8f8; overflow-y:auto;
+}
+#admin-panel.visible { display:block; }
+.admin-nav {
+  background:#0a0a0a; padding:16px 40px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:10;
+}
+.admin-nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.2rem; color:#fff; }
+.admin-nav-logo span { color:#E8130A; }
+.admin-nav-right { display:flex; gap:12px; align-items:center; }
+.btn-admin-save {
+  background:#E8130A; color:#fff; border:none; cursor:pointer;
+  padding:10px 24px; border-radius:2px;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700;
+  font-size:0.9rem; letter-spacing:0.08em; text-transform:uppercase;
+  transition:background 0.2s;
+}
+.btn-admin-save:hover { background:#ff2e25; }
+.btn-admin-close {
+  background:rgba(255,255,255,0.1); color:#fff; border:none; cursor:pointer;
+  padding:10px 20px; border-radius:2px;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700;
+  font-size:0.9rem; letter-spacing:0.08em; text-transform:uppercase;
+  transition:background 0.2s;
+}
+.btn-admin-close:hover { background:rgba(255,255,255,0.2); }
+.admin-body { max-width:900px; margin:0 auto; padding:40px; }
+.admin-section {
+  background:#fff; border:1px solid #e5e5e5; border-radius:6px;
+  margin-bottom:24px; overflow:hidden;
+}
+.admin-section-header {
+  background:#0a0a0a; padding:14px 24px;
+  display:flex; align-items:center; gap:10px;
+}
+.admin-section-header h3 {
+  font-family:'Barlow Condensed',sans-serif; font-weight:800;
+  font-size:1rem; text-transform:uppercase; letter-spacing:0.1em; color:#fff;
+}
+.admin-section-header .admin-icon { font-size:1.1rem; }
+.admin-fields { padding:24px; display:flex; flex-direction:column; gap:16px; }
+.admin-field { display:flex; flex-direction:column; gap:6px; }
+.admin-field label {
+  font-size:0.72rem; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:#888;
+}
+.admin-field input, .admin-field textarea {
+  border:1px solid #e0e0e0; border-radius:3px;
+  padding:10px 14px; font-family:'Barlow',sans-serif;
+  font-size:0.92rem; color:#0a0a0a; outline:none;
+  transition:border-color 0.2s;
+}
+.admin-field input:focus, .admin-field textarea:focus { border-color:#E8130A; }
+.admin-field textarea { min-height:80px; resize:vertical; }
+.admin-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.admin-row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.admin-hint { font-size:0.72rem; color:#aaa; margin-top:2px; }
+.admin-saved {
+  display:none; position:fixed; bottom:30px; right:30px;
+  background:#0a0a0a; color:#fff; padding:14px 24px; border-radius:4px;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.9rem;
+  letter-spacing:0.08em; text-transform:uppercase;
+  animation:fadeInOut 2.5s forwards;
+}
+@keyframes fadeInOut {
+  0%{opacity:0;transform:translateY(10px)}
+  15%{opacity:1;transform:translateY(0)}
+  75%{opacity:1}
+  100%{opacity:0}
+}
+.admin-trigger {
+  position:fixed; bottom:20px; right:20px; z-index:999;
+  background:#0a0a0a; color:#fff; border:none; cursor:pointer;
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; box-shadow:0 4px 20px rgba(0,0,0,0.2);
+  transition:all 0.2s;
+}
+.admin-trigger:hover { background:#E8130A; transform:scale(1.1); }
 </style>
 </head>
 <body>
@@ -280,14 +378,14 @@ footer p { font-size:0.74rem; color:rgba(0,0,0,0.85); }
 <div id="hero">
   <div class="hero-left">
     <div class="alert-badge"><div class="dot"></div> Intervention disponible maintenant</div>
-    <h1>Cabinet en ligne spécialisée pour l'<em>Urgence Paie.</em></h1>
+    <h1>Votre paie bloquée ?<em>On règle ça.</em></h1>
     <p class="desc">DSN en retard, pénalité URSSAF, bulletins erronés — <strong>nous régularisons votre situation en 48h.</strong> Mission ponctuelle. Prix fixe. Sans engagement.</p>
     <div class="proof">
       <div class="proof-item"><strong>48h</strong><span>Délai d'intervention</span></div>
       <div class="proof-item"><strong>0€</strong><span>Diagnostic initial</span></div>
       <div class="proof-item"><strong>100%</strong><span>Dossiers régularisés</span></div>
     </div>
-    <button class="btn-primary" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})">Démarrer mon diagnostic →</button>
+    <button class="btn-primary" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})"><span class="btn-dot"></span> Démarrer mon diagnostic →</button>
     <p class="cta-note">Réponse sous 24h · Aucun engagement</p>
   </div>
 
